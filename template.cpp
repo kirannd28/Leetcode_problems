@@ -19,6 +19,5 @@ using namespace std;
 
 int main()
 {
-    cout << "Hello Welcome to my World" << endl;
     return 0;
 }

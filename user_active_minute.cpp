@@ -52,6 +52,8 @@ k is in the range {The maximum UAM for a user, 105}.
 #include <set>
 #include <algorithm>
 #include <map>
+#include <unordered_map>
+#include <unordered_set>
 using namespace std;
 
 class Solution {
@@ -59,20 +61,14 @@ public:
     vector<int> findingUsersActiveMinutes(vector<vector<int>>& logs, int k) 
     {
         vector<int> result(k, 0);
-        multimap<int, int> log_value;
-        map<int, set<int>> data;
+        unordered_map<int, unordered_set<int>> log_value;
 
-        for(auto a : logs)
-            log_value.insert(pair<int, int>(a[0],a[1]));
+        for(auto &a : logs)
+            log_value[a[0]].insert(a[1]);
 
-        for(auto a = log_value.begin(); a != log_value.end(); ++a){
-            set<int>& s(data[a->first]);
-            s.insert(a->second);
-        }
-
-        for(auto a : data){
+        for(auto a : log_value)
             result[a.second.size() - 1]++;
-        }
+            
         return result;
     }
 };
